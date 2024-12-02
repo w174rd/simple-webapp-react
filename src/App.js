@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
+import Routes from "./routes"
 
 // function App() {
 //   return (
@@ -22,13 +23,10 @@ import './App.css';
 //   );
 // }
 
-function App() {
+const App = () => {
+
   return (
-    <div className="container text-center mt-5">
-      <h1 className="display-4">Welcome to React with Bootstrap!</h1>
-      <p className="lead">Bootstrap is successfully integrated into your React app.</p>
-      <button className="btn btn-primary">Click Me</button>
-    </div>
+    <Routes />
   );
 }
 
