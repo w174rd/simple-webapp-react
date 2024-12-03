@@ -3,7 +3,7 @@ import { storageKey } from "../util/Config";
 
 
 const apiService = axios.create({
-    baseURL: 'http://127.0.0.1:8080', //process.env.BASE_URL_API,
+    baseURL: process.env.REACT_APP_BASE_URL_API,
     timeout: 30000, // Timeout 30 detik
     headers: {
       'Content-Type': 'application/json',
