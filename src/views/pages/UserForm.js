@@ -1,5 +1,6 @@
 import { useRef } from "react"
 import api from "../../services/API"
+import { ToastNotification } from "../../components/toast"
 
 
 
@@ -15,16 +16,16 @@ const UserForm = () => {
         const email = emailRef.current.value
         const password = passwordRef.current.value
 
-        api.register({
+        await api.register({
             name: name,
             email: email,
-            password: password,
+            password: password, 
         })
         .then((response => {
-
+            ToastNotification('success', response.message || "Data Berhasil Ditambahkan");
         }))
         .catch((error) => {
-            console.log(error)
+            ToastNotification('error', error.message || "Data Gagal Ditambahkan");
         })
     }
 
