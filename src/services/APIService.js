@@ -7,6 +7,7 @@ const apiService = axios.create({
     timeout: 30000, // Timeout 30 detik
     headers: {
       'Content-Type': 'application/json',
+      'x-api-key': process.env.REACT_APP_API_KEY
     },
   });
 
