@@ -33,13 +33,32 @@ apiService.interceptors.response.use(
       return response.data;
     },
     (error) => {
-      // Handle error pada response
-      if (error.response && error.response.status === 401) {
-        console.error('Unauthorized, redirecting to login...');
-        // Redirect ke halaman login (opsional)
-        // window.location.href = '/login';
+      if (error.response) {
+        const { data, status } = error.response;
+        const errorMessage = data?.message || 'Terjadi kesalahan'; // Default jika tidak ada 'message'
+  
+        console.error(`Error ${status}: ${errorMessage}`);
+  
+        if (status === 401) {
+          console.error('Unauthorized, redirecting to login...');
+          // window.location.href = '/login';
+        }
+  
+        // Tambahkan pesan error ke objek error
+        return Promise.reject({
+          code: data?.code,
+          status: data?.status,
+          message: errorMessage 
+        });
       }
-      return Promise.reject(error);
+  
+      // Jika tidak ada response, kemungkinan network error
+      console.error('Network error:', error.message);
+      return Promise.reject({
+        code: 1,
+        status: 'error',
+        message: 'Network bermasalah, silahkan coba lagi nanti',
+      });
     }
   );  
   

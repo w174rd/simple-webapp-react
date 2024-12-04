@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import api from '../../services/API';
 import { storageKey } from '../../util/Config';
+import { ToastNotification } from '../../components/toast';
 
 const Login = () => {
 
@@ -23,6 +24,7 @@ const Login = () => {
         })
         .catch((error) => {
             console.error('Error:', error)
+            ToastNotification('error', error.message || "Login gagal");
         })
     }
 

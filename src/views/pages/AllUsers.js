@@ -4,14 +4,17 @@ import api from "../../services/API";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
+    const [responseMessage, setResponseMessage] = useState()
 
     useEffect(() => {
+        setResponseMessage(null)
         api.getUsers()
         .then((response) => {
             setUsers(response.data);
         })
         .catch((error) => {
             console.error('Error:', error)
+            setResponseMessage(error.message)
         })
     }, [])
 
@@ -39,7 +42,7 @@ const Users = () => {
                         </tr>
                     ))
                     ): (<tr>
-                        <td colSpan="3">No users found</td>
+                        <td colSpan="3">{responseMessage || "No user found"}</td>
                     </tr>
                     )
                     }
