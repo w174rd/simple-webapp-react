@@ -1,41 +1,27 @@
 
 import { useRef } from 'react';
-import api from '../../services/API';
-import { storageKey } from '../../util/Config';
-import { ToastNotification } from '../../components/toast';
 import CustomButton from '../../components/button';
-import { showLoading } from '../../redux/actions/utility';
+import { servicesAuth } from '../../services/actions/auth';
 import { useDispatch } from 'react-redux';
 
 const Login = () => {
+    const dispatch = useDispatch();
+    // const authData = useSelector((state) => state.auth);
 
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
 
-    const dispatch = useDispatch();
+    const services = servicesAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        dispatch(
-            showLoading({ button: true })
-        )
+
         const password = passwordRef.current.value;
         const email = emailRef.current.value;
 
-        api.login({
-            email: email,
-            password: password
-        })
-        .then((response) => {
-            dispatch(showLoading({ button: false }))
-            console.log(response)
-            localStorage.setItem(storageKey.USER_TOKEN, response?.data?.token)
-        })
-        .catch((error) => {
-            dispatch(showLoading({ button: false }))
-            console.error('Error:', error)
-            ToastNotification('error', error.message || "Login gagal");
-        })
+        dispatch(services.login({email: email, password: password}));
+
+        // ToastNotification('success', JSON.stringify(authData?.login?.data || ""))
     }
 
     return (
