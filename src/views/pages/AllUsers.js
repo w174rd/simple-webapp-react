@@ -4,13 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 const Users = () => {
-    const service = serviceUsers();
     const userState = useSelector((state) => state.user);
     const dispatch = useDispatch();
-
+      
     useEffect(() => {
-        dispatch(service.getUsers());
-    },[]);
+        dispatch(serviceUsers().getUsers());
+    }, [dispatch]);
 
     return(
         <div className="container text-center mt-5">

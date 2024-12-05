@@ -1,4 +1,3 @@
-import { ToastNotification } from "../../../components/toast"
 import { showLoading } from "../../../redux/actions/utility"
 import { GET_USERS } from "../../../redux/reducers/users"
 import api from "../../API"
