@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
-import api from "../../services/API";
+import { useEffect } from "react";
+import { serviceUsers } from "../../services/actions/users";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const Users = () => {
-    const [users, setUsers] = useState([]);
-    const [responseMessage, setResponseMessage] = useState()
+    const service = serviceUsers();
+    const userState = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        setResponseMessage(null)
-        api.getUsers()
-        .then((response) => {
-            setUsers(response.data);
-        })
-        .catch((error) => {
-            console.error('Error:', error)
-            setResponseMessage(error.message)
-        })
-    }, [])
+        dispatch(service.getUsers());
+    },[]);
 
     return(
         <div className="container text-center mt-5">
@@ -32,9 +26,9 @@ const Users = () => {
                 </thead>
                 <tbody className="table-group-divider">
                     {
-                    users.length > 0 ? (
+                    userState?.getUsers?.data?.length > 0 ? (
                     // eslint-disable-next-line
-                    users?.map((user) => (
+                    userState?.getUsers?.data?.map((user) => (
                         <tr key={user.id}>
                             <td>{user.id}</td>
                             <td>{user.name}</td>
@@ -42,7 +36,7 @@ const Users = () => {
                         </tr>
                     ))
                     ): (<tr>
-                        <td colSpan="3">{responseMessage || "No user found"}</td>
+                        <td colSpan="3">{userState?.getUsers?.message || "No user found"}</td>
                     </tr>
                     )
                     }

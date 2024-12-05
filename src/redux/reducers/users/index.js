@@ -1,21 +1,22 @@
 
-export const LOGIN = "LOGIN";
+
+export const GET_USERS = "GET_USERS";
 
 const initialState = {
-    login: {
+    getUsers: {
         code: 1,
         status: "",
         message: "",
-        data: {}
+        data: []
     }
 }
 
-export const authReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
     switch(action.type) {
-        case LOGIN:
+        case GET_USERS:
             return { 
-                ...state,
-                login: {
+                ...state, 
+                getUsers: {
                     code: action.payload.code,
                     status: action.payload.status,
                     message: action.payload.message,
@@ -23,6 +24,6 @@ export const authReducer = (state = initialState, action) => {
                 }
             };
         default:
-            return state
+            return state;
     }
 }
