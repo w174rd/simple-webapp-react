@@ -49,7 +49,7 @@ export const serviceUsers = () => {
                 setTimeout(()=>{
                     navigate('/users', { replace: true })
                     dispatch( showLoading({ button: false }));
-                })
+                }, [1000]);
             })
             .catch((error) => {
                 dispatch( showLoading({ button: false }));

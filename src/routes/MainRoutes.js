@@ -1,8 +1,9 @@
-import { Navigate } from "react-router-dom"
-import Users from "../views/user/AllUsers"
+import { Navigate, Outlet } from "react-router-dom"
 import Login from "../views/login/Login"
-import UserForm from "../views/user/UserForm"
+import UserForm from "../views/user/form/UserForm"
+import Users from "../views/user/AllUsers"
 import ProtectedRoute from "../util/ProtectedRoute"
+// import ProtectedRoute from "../util/ProtectedRoute"
 
 
 
@@ -22,7 +23,7 @@ const MainRoutes =  [
         path:'/users',
         element:(
             <ProtectedRoute>
-             <Users />
+             <Outlet />
             </ProtectedRoute>
         ),
         children: [
