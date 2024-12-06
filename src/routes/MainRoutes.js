@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom"
 import Users from "../views/pages/AllUsers"
 import Login from "../views/pages/Login"
 import UserForm from "../views/pages/UserForm"
+import ProtectedRoute from "../util/ProtectedRoute"
 
 
 
@@ -19,7 +20,11 @@ const MainRoutes =  [
     },
     {
         path:'/users',
-    
+        element:(
+            <ProtectedRoute>
+             <Users />
+            </ProtectedRoute>
+        ),
         children: [
             {
                 path:'',

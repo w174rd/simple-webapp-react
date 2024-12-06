@@ -6,16 +6,15 @@ import api from "../../API";
 import { LOGIN } from "../../../redux/reducers/auth";
 
 
-
 export const servicesAuth = () => {
 
-    const login = (requestBody) => {
+    const login = (requestBody, navigate) => {
+
         return async (dispatch) => {
             dispatch( showLoading({ button: true }));
 
             api.login(requestBody)
             .then((response) => {
-                dispatch( showLoading({ button: false }))
                 dispatch({
                     type: LOGIN,
                     payload: {
@@ -27,6 +26,13 @@ export const servicesAuth = () => {
                 })
                 ToastNotification('success', response?.message || "berhasil login")
                 localStorage.setItem(storageKey.USER_TOKEN, response?.data?.token)
+
+                // redirect to users page
+                setTimeout(() => {
+                    navigate('/users', { replace: true });
+                    dispatch( showLoading({ button: false }))
+                }, [1000]);
+
             }).catch((error) => {
                 dispatch( showLoading({ button: false }))
                 console.error('Error:', error)

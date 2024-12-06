@@ -3,10 +3,12 @@ import { useRef } from 'react';
 import CustomButton from '../../components/button';
 import { servicesAuth } from '../../services/actions/auth';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const dispatch = useDispatch();
     // const authData = useSelector((state) => state.auth);
+    const navigate = useNavigate();
 
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -19,7 +21,7 @@ const Login = () => {
         const password = passwordRef.current.value;
         const email = emailRef.current.value;
 
-        dispatch(services.login({email: email, password: password}));
+        dispatch(services.login({email: email, password: password}, navigate));
 
         // ToastNotification('success', JSON.stringify(authData?.login?.data || ""))
     }
