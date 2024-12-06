@@ -58,8 +58,46 @@ export const serviceUsers = () => {
         }
     }
 
+    const updateUser = (bodyRequest, navigate) => {
+        return async (dispatch) => {
+            dispatch( showLoading({ button: true }));
+
+            api.updateUser(bodyRequest)
+            .then((response) => {
+                ToastNotification('success', response.message);
+                setTimeout(()=>{
+                    navigate('/users', { replace: true })
+                    dispatch( showLoading({ button: false }));
+                }, [1000]);
+            })
+            .catch((error) => {
+                dispatch( showLoading({ button: false }));
+                ToastNotification('error', error.message);
+            });
+        }
+    }
+
+    const deleteUser = (id) => {
+        return async (dispatch) => {
+            dispatch( showLoading({ table: true }));
+
+            api.deleteUser(id)
+            .then((response) => {
+                dispatch(getUsers());
+                ToastNotification('success', response.message);
+                dispatch( showLoading({ table: false }));
+            })
+            .catch((error) => {
+                dispatch( showLoading({ table: false }));
+                ToastNotification('error', error.message);
+            });
+        }
+    }
+
     return {
         getUsers,
-        createUser
+        createUser,
+        updateUser,
+        deleteUser
     }
 }

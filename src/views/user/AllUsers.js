@@ -8,6 +8,7 @@ const Users = () => {
     const userState = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const service = serviceUsers();
       
     useEffect(() => {
         dispatch(serviceUsers().getUsers());
@@ -30,6 +31,7 @@ const Users = () => {
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody className="table-group-divider">
@@ -41,10 +43,18 @@ const Users = () => {
                             <td>{user.id}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
+                            <td className="col align-items-center">
+                                <button type="button" class="btn btn-warning">Edit</button> 
+                                <button type="button" class="btn btn-danger ms-2" onClick={
+                                    () => {
+                                        dispatch(service.deleteUser(user.id));
+                                    }
+                                }>Delete</button>
+                            </td>
                         </tr>
                     ))
                     ): (<tr>
-                        <td colSpan="3">{userState?.getUsers?.message || "No user found"}</td>
+                        <td colSpan="4">{userState?.getUsers?.message || "No user found"}</td>
                     </tr>
                     )
                     }
