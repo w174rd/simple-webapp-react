@@ -1,6 +1,7 @@
 import { showLoading } from "../../../redux/actions/utility"
 import { GET_USERS } from "../../../redux/reducers/users"
 import api from "../../API"
+import { ToastNotification } from "../../../components/toast"
 
 
 
@@ -38,7 +39,27 @@ export const serviceUsers = () => {
         }
     }
 
+    const createUser = (bodyRequest, navigate) => {
+        return async (dispatch) => {
+            dispatch( showLoading({ button: true }));
+
+            api.register(bodyRequest)
+            .then((response) => {
+                ToastNotification('success', response.message);
+                setTimeout(()=>{
+                    navigate('/users', { replace: true })
+                    dispatch( showLoading({ button: false }));
+                })
+            })
+            .catch((error) => {
+                dispatch( showLoading({ button: false }));
+                ToastNotification('error', error.message);
+            });
+        }
+    }
+
     return {
-        getUsers
+        getUsers,
+        createUser
     }
 }

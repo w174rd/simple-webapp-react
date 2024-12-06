@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { serviceUsers } from "../../services/actions/users";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 const Users = () => {
     const userState = useSelector((state) => state.user);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
       
     useEffect(() => {
         dispatch(serviceUsers().getUsers());
@@ -15,6 +17,13 @@ const Users = () => {
         <div className="container text-center mt-5">
             <div className="row align-items-center">
             <h1>Users</h1>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" onClick={
+                    () => {
+                        navigate("form", { replace: true })
+                    }
+                }>Create</button>
+            </div>
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
