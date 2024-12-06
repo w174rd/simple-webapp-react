@@ -1,5 +1,5 @@
 import { showLoading } from "../../../redux/actions/utility"
-import { GET_USERS } from "../../../redux/reducers/users"
+import { GET_USER, GET_USERS } from "../../../redux/reducers/users"
 import api from "../../API"
 import { ToastNotification } from "../../../components/toast"
 
@@ -27,6 +27,39 @@ export const serviceUsers = () => {
             .catch((error) => {
                 dispatch({
                     type: GET_USERS,
+                    payload: {
+                        code: error?.code,
+                        status: error?.status,
+                        message: error?.message,
+                        data: []
+                    }
+                });
+                dispatch( showLoading({ table: false }));
+            });
+        }
+    }
+
+    const getUser = (id, navigate) => {
+        return async (dispatch) => {
+            dispatch( showLoading({ table: true }));
+
+            api.getUserById(id)
+            .then((response) => {
+                dispatch({
+                    type: GET_USER,
+                    payload: {
+                        code: response?.code,
+                        status: response?.status,
+                        message: response?.message,
+                        data: response?.data
+                    }
+                })
+                dispatch( showLoading({ table: false }));
+                navigate('form', { replace: true })
+            })
+            .catch((error) => {
+                dispatch({
+                    type: GET_USER,
                     payload: {
                         code: error?.code,
                         status: error?.status,
@@ -98,6 +131,7 @@ export const serviceUsers = () => {
         getUsers,
         createUser,
         updateUser,
-        deleteUser
+        deleteUser,
+        getUser
     }
 }

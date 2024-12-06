@@ -3,7 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik"
 import { validationSchema } from "./validation"
 // import { useDispatch } from "react-redux"
 import CustomButton from "../../../components/button"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { serviceUsers } from "../../../services/actions/users"
 import { useNavigate } from "react-router-dom"
 
@@ -14,6 +14,7 @@ const UserForm = () => {
     const dispatch = useDispatch();
     const service = serviceUsers();
     const navigate = useNavigate();
+    const user = useSelector((state) => state.user.getUser);
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
@@ -28,12 +29,13 @@ const UserForm = () => {
 
     return (
         <Formik
-            initialValues={{ name: "", email: "", password: "" }}
+            initialValues={{ id: user.data.id, name: user.data.name, email: user.data.email, password: "" }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
         >
             {({ isSubmitting }) => (
                 <Form className="container text-start mt-5">
+                    <Field type="hidden"  id="id" name="id" />
                     <div className="mb-3">
                         <label className="form-label">Name</label>
                         <Field type="text" id="name" name="name" className="form-control" />

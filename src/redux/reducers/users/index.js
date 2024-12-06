@@ -1,6 +1,7 @@
 
 
 export const GET_USERS = "GET_USERS";
+export const GET_USER = "GET_USER";
 
 const initialState = {
     getUsers: {
@@ -8,6 +9,12 @@ const initialState = {
         status: "",
         message: "",
         data: []
+    },
+    getUser: {
+        code: 1,
+        status: "",
+        message: "",
+        data: {}
     }
 }
 
@@ -23,6 +30,16 @@ export const userReducer = (state = initialState, action) => {
                     data: action.payload.data
                 }
             };
+        case GET_USER:
+            return { 
+                ...state, 
+                getUser: {
+                    code: action.payload.code,
+                    status: action.payload.status,
+                    message: action.payload.message,
+                    data: action.payload.data
+                }
+            };    
         default:
             return state;
     }

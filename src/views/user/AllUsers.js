@@ -44,7 +44,11 @@ const Users = () => {
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td className="col align-items-center">
-                                <button type="button" class="btn btn-warning">Edit</button> 
+                                <button type="button" class="btn btn-warning" onClick={
+                                    () => {
+                                        dispatch(service.getUser(user.id, navigate))
+                                    }
+                                }>Edit</button> 
                                 <button type="button" class="btn btn-danger ms-2" onClick={
                                     () => {
                                         dispatch(service.deleteUser(user.id));
