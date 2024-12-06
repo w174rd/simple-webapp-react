@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom"
-import Users from "../views/pages/AllUsers"
-import Login from "../views/pages/Login"
-import UserForm from "../views/pages/UserForm"
+import Users from "../views/user/AllUsers"
+import Login from "../views/login/Login"
+import UserForm from "../views/user/UserForm"
 import ProtectedRoute from "../util/ProtectedRoute"
 
 
