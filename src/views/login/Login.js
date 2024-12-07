@@ -31,7 +31,8 @@ const Login = () => {
         >
         {({ isSubmitting }) => (
         <div className="container text-start mt-5">
-            <div className="row align-items-left">
+            <div className="row align-items-left border p-4 shadow rounded">
+                <h2 className="text-center mb-3 fw-bold">Login</h2>
             <Form>
                 <div className="mb-3">
                     <label className="form-label">Email</label>
@@ -43,7 +44,7 @@ const Login = () => {
                     <Field id="password" type="password" name="password" className="form-control" />
                     <ErrorMessage name="password" component="div" style={{ color: "red" }} />
                 </div>
-                <CustomButton className="btn btn-primary" text="Login" isDisable={isSubmitting} />
+                <CustomButton className="btn btn-primary mb-3" text="Login" isDisable={isSubmitting} />
             </Form>
             </div>
         </div>

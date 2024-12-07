@@ -17,8 +17,8 @@ const Users = () => {
 
     return(
         <div className="container text-center mt-5">
-            <div className="row align-items-center">
-            <h1>Users</h1>
+            <h2 className="fw-bold mb-3">Users</h2>
+            <div className="row align-items-center border p-4 rounded">
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary" onClick={
                     () => {
