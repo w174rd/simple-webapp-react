@@ -95,7 +95,7 @@ export const serviceUsers = () => {
         return async (dispatch) => {
             dispatch( showLoading({ button: true }));
 
-            api.updateUser(bodyRequest)
+            api.updateUser(bodyRequest.id, bodyRequest)
             .then((response) => {
                 ToastNotification('success', response.message);
                 setTimeout(()=>{

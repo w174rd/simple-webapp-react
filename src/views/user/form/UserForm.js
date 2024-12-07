@@ -1,6 +1,6 @@
 
 import { ErrorMessage, Field, Form, Formik } from "formik"
-import { validationSchema } from "./validation"
+import { validationSchemaCreate, validationSchemaUpdate } from "./validation"
 // import { useDispatch } from "react-redux"
 import CustomButton from "../../../components/button"
 import { useDispatch, useSelector } from "react-redux"
@@ -14,12 +14,18 @@ const UserForm = () => {
     const dispatch = useDispatch();
     const service = serviceUsers();
     const navigate = useNavigate();
-    const user = useSelector((state) => state.user.getUser);
+    const user = useSelector((state) => state?.user?.getUser);
+
+    const isUpdate = Boolean(user?.data?.id);
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             console.log(values)
-            dispatch(service.createUser(values, navigate));
+            if (isUpdate) {
+                dispatch(service.updateUser(values, navigate));
+            } else {
+                dispatch(service.createUser(values, navigate));
+            }
         } catch (error) {
             console.error("Error:", error);
         } finally {
@@ -29,8 +35,13 @@ const UserForm = () => {
 
     return (
         <Formik
-            initialValues={{ id: user.data.id, name: user.data.name, email: user.data.email, password: "" }}
-            validationSchema={validationSchema}
+            initialValues={{ 
+                id: user?.data?.id, 
+                name: user?.data?.name, 
+                email: user?.data?.email, 
+                password: "" 
+            }}
+            validationSchema={isUpdate ? validationSchemaUpdate : validationSchemaCreate}
             onSubmit={handleSubmit}
         >
             {({ isSubmitting }) => (
@@ -46,11 +57,15 @@ const UserForm = () => {
                         <Field type="email" id="email" name="email" className="form-control" />
                         <ErrorMessage name="email" component="div" style={{ color: "red" }} />
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <Field type="password" id="password" name="password" className="form-control" />
-                        <ErrorMessage name="password" component="div" style={{ color: "red" }} />
-                    </div>
+                    {
+                        !isUpdate && (
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <Field type="password" id="password" name="password" className="form-control" />
+                            <ErrorMessage name="password" component="div" style={{ color: "red" }} />
+                        </div>
+                        )
+                    }
                     <CustomButton
                             text="Submit"
                             className="btn btn-primary"

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { serviceUsers } from "../../services/actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { clearUserState } from "../../redux/actions/utility";
 
 
 const Users = () => {
@@ -21,7 +22,8 @@ const Users = () => {
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary" onClick={
                     () => {
-                        navigate("form", { replace: true })
+                        dispatch(clearUserState())
+                        navigate("form", { replace: true})
                     }
                 }>Create</button>
             </div>

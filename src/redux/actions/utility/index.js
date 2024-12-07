@@ -1,3 +1,4 @@
+import { CLEAR_USER } from "../../reducers/users";
 import { LOADING } from "../../reducers/utility";
 
 export const showLoading = (loading) => {
@@ -27,3 +28,11 @@ export const stopLoading = () => {
         });
     };
 };
+
+export const clearUserState = () => {
+    return async (dispatch) => {
+        dispatch({
+            type: CLEAR_USER
+        })
+    }
+}
