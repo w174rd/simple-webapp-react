@@ -41,7 +41,7 @@ apiService.interceptors.response.use(
   
         if (status === 401) {
           console.error('Unauthorized, redirecting to login...');
-          // window.location.href = '/login';
+          window.location.href = '/login';
         }
   
         // Tambahkan pesan error ke objek error
