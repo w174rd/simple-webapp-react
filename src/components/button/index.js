@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 
-const CustomButton = ({type="submit", className="btn btn-primary", text, isDisable = false}) => {
+const CustomButton = ({type="submit", className="btn btn-primary", text, isDisable = false, onClick}) => {
     const utility = useSelector((state) => state.utility);
 
     return(
@@ -13,7 +13,7 @@ const CustomButton = ({type="submit", className="btn btn-primary", text, isDisab
                      Loading...
                 </button>
             :
-            <button type={type} className={className} disabled={isDisable}>
+            <button type={type} className={className} disabled={isDisable} onClick={onClick} >
                 {text}
             </button>
         }

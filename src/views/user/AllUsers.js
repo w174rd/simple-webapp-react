@@ -3,6 +3,9 @@ import { serviceUsers } from "../../services/actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearUserState } from "../../redux/actions/utility";
+import ModalConfirm from "../../components/ModalConfirm";
+import ButtonWithConfirm from "../../components/buttonWithConfirm/ButtonWithConfirm";
+
 
 
 const Users = () => {
@@ -10,6 +13,7 @@ const Users = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const service = serviceUsers();
+
       
     useEffect(() => {
         dispatch(serviceUsers().getUsers());
@@ -17,6 +21,7 @@ const Users = () => {
 
     return(
         <div className="container text-center mt-5">
+            <ModalConfirm onClick="" />
             <h2 className="fw-bold mb-3">Users</h2>
             <div className="row align-items-center border p-4 rounded">
             <div class="d-flex justify-content-end">
@@ -51,11 +56,14 @@ const Users = () => {
                                         dispatch(service.getUser(user.id, navigate))
                                     }
                                 }>Edit</button> 
-                                <button type="button" class="btn btn-danger ms-2" onClick={
-                                    () => {
-                                        dispatch(service.deleteUser(user.id));
+                                <ButtonWithConfirm
+                                    btnTitle="Delete" 
+                                    handleConfirm={() =>
+                                        dispatch(service.deleteUser(user.id))
                                     }
-                                }>Delete</button>
+                                    titleModal="Confirm"
+                                    messageModal="Sure to delete this data?"
+                                    btnConfirmModal="Ya" />
                             </td>
                         </tr>
                     ))
