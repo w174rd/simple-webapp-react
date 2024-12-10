@@ -10,7 +10,7 @@ const CustomButton = ({type="submit", className="btn btn-primary", text, isDisab
             utility.loading.button ? 
                 <button type={type} className={className} disabled>
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>
-                     Loading...
+                    &nbsp; Loading...
                 </button>
             :
             <button type={type} className={className} disabled={isDisable} onClick={onClick} >
